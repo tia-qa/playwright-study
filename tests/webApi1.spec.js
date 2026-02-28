@@ -1,6 +1,5 @@
 const { test, expect, request } = require ('@playwright/test');
 //import { test, expect, request } from '@playwright/test';
-const LoginPayLoad = {userEmail: "suchita-qa@outlook.com", userPassword: "M.@r!dED8Ay.N6."}
 
 let token;
 
