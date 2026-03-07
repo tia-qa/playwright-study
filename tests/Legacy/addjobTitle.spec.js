@@ -1,12 +1,10 @@
 import { test, expect } from '@playwright/test';
-import empdata from "../testdata/addempTestData.json";
-import logindata from  "../testdata/logindata.json";
+import logindata from "../../testdata/logindata.json";
+//import faker from 'faker';
+import { faker } from '@faker-js/faker'
 
-//const empstatus = ['part time', 'full time', 'QA Engineer']
-
-
-test('Verify admin can create employment status', async ({ page }) => {
-    //launch URL
+test('Verify admin can add job title', async ({ page }) => {
+     //launch URL
     await page.goto('https://opensource-demo.orangehrmlive.com/web/index.php/auth/login')
 
     //enter username
@@ -27,24 +25,20 @@ test('Verify admin can create employment status', async ({ page }) => {
     //click on Job
     await page.getByText('Job', { exact: true }).click()
 
-    //click on employment status
-    await page.getByRole('menuitem', { name: 'Employment Status' }).click()
-    //verify employment status is displayed
-    await expect(page.getByRole('heading', { name: 'Employment Status' })).toBeVisible()
+    //click on job titles
+    await page.getByRole('menuitem', { name: 'Job Titles' }).click()
+    //verify job titles is displayed
+    await expect(page.getByRole('heading', { name: 'Job Titles' })).toBeVisible()
     //click on Add 
     await page.getByRole('button', { name: 'Add' }).click()
 
-    //employment status name
-    await page.locator('(//input[@class="oxd-input oxd-input--active"])[2]').fill(empdata.employment);
+    //job title name
+    const jobttitle  = faker.person.jobTitle();
+    
+await page.locator('input.oxd-input.oxd-input--active').first().fill(jobttitle);
     //click on save
     await page.getByRole('button', { name: 'Save' }).click()
 
-    await expect(page).toHaveURL('https://opensource-demo.orangehrmlive.com/web/index.php/admin/employmentStatus')
-
-    await expect(page.getByText(empdata.employment, { exact: true })).toBeVisible()
-    console.log('yaay')
-
-    //close browser
-    await page.close()
+    await expect(page.getByRole('cell', { name: jobttitle })).toBeVisible();
 
 })
