@@ -39,6 +39,14 @@ export default defineConfig({
       name: 'chromium',
       use: { ...devices['Desktop Chrome'] },
     },
+    {
+      name: "setup",
+      use: { ...devices['Desktop Chrome'],
+              channel: "chrome"
+      },
+      testMatch: /.*\.setup\.js/,
+
+    },
 
     // {
     //   name: 'firefox',
@@ -65,10 +73,12 @@ export default defineConfig({
     //   name: 'Microsoft Edge',
     //   use: { ...devices['Desktop Edge'], channel: 'msedge' },
     // },
-    // {
-    //   name: 'Google Chrome',
-    //   use: { ...devices['Desktop Chrome'], channel: 'chrome' },
-    // },
+    {
+      name: 'Google Chrome',
+      use: { ...devices['Desktop Chrome'], channel: 'chrome' ,
+      storageState: ".auth/user.json"
+      },
+    },
   ],
 
   /* Run your local dev server before starting the tests */
